@@ -1,0 +1,14 @@
+#!/bin/bash
+
+test -z "${GITHUB_OAUTH_TOKEN}" || php /usr/local/bin/composer.phar config -g github-oauth.github.com ${GITHUB_OAUTH_TOKEN}
+
+if [ -f ./composer.json ]
+then
+    echo Project already exests
+else
+    echo Create yii2 project
+    php /usr/local/bin/composer.phar create-project --prefer-dist yiisoft/yii2-app-basic ./
+fi
+
+echo Composer update project dependencies
+php /usr/local/bin/composer.phar install --no-progress
